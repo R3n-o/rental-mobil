@@ -62,7 +62,7 @@ app/
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/username/rental-mobil.git
+git clone https://github.com/R3n-o/rental-mobil.git
 cd rental-mobil
 ```
 

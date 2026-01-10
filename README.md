@@ -284,12 +284,6 @@ POST /api/bookings
 
 ## 📄 License
 
-Project ini menggunakan lisensi MIT. Lihat file [LICENSE](LICENSE) untuk detail.
-
-## 👨‍💻 Author
-
-**Maulidin**
-
 ---
 
 ⭐ Jangan lupa beri star jika project ini membantu!

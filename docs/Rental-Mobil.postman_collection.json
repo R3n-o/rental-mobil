@@ -12,6 +12,19 @@
 			"item": [
 				{
 					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -20,32 +33,38 @@
 							"urlencoded": [
 								{
 									"key": "name",
-									"value": "Customer",
+									"value": "lisan al ghaib",
+									"description": "masukan nama pengguna",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "Customer@gmail.com",
+									"value": "phaul11@gmail.com",
+									"description": "Tidak boleh kembar/sama dengan sebelumnya\n",
 									"type": "text"
 								},
 								{
 									"key": "phone",
-									"value": "111222333",
+									"value": "1234567",
+									"description": "masukan nomor telepon",
 									"type": "text"
 								},
 								{
 									"key": "address",
-									"value": "Amerika",
+									"value": "arrakis",
+									"description": "masukan alamat",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "Customer123",
+									"value": "phaul77",
+									"description": "masukan password",
 									"type": "text"
 								},
 								{
 									"key": "password_confirmation",
-									"value": "Customer123",
+									"value": "phaul77",
+									"description": "konfirmasi password sebelumnya",
 									"type": "text"
 								}
 							]
@@ -58,9 +77,99 @@
 							"path": [
 								"register"
 							]
-						}
+						},
+						"description": "Endpoint ini digunakan untuk mendaftarkan akun Customer baru.  \nJika sukses, user akan langsung terdaftar di database, namun harus Login terlebih dahulu untuk mendapatkan token."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "lisan al ghaib",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "phaul11@gmail.com",
+											"description": "Tidak boleh kembar/sama dengan sebelumnya\n",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "1234567",
+											"type": "text"
+										},
+										{
+											"key": "address",
+											"value": "arrakis",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "phaul77",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "phaul77",
+											"description": "harus sama ",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/register",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 11:04:29 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"user\": {\n        \"name\": \"lisan al ghaib\",\n        \"email\": \"phaul11@gmail.com\",\n        \"phone\": \"1234567\",\n        \"address\": \"arrakis\",\n        \"role\": \"customer\",\n        \"updated_at\": \"2026-01-11T11:04:29.000000Z\",\n        \"created_at\": \"2026-01-11T11:04:29.000000Z\",\n        \"id\": 5\n    },\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3JlZ2lzdGVyIiwiaWF0IjoxNzY4MTI5NDY5LCJleHAiOjE3NjgxMzMwNjksIm5iZiI6MTc2ODEyOTQ2OSwianRpIjoiZXJWWjNHY0tQOFlGSXNBWCIsInN1YiI6IjUiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImN1c3RvbWVyIn0.zLqbMbSmCzIgGvXQagLjYguXlPc5yKX1lI71rJqT1XM\"\n}"
+						}
+					]
 				},
 				{
 					"name": "Login",
@@ -70,12 +179,7 @@
 							"script": {
 								"exec": [
 									"var jsonData = pm.response.json();\r",
-									"if (jsonData.token) {\r",
-									"    pm.environment.set(\"token\", jsonData.token);\r",
-									"    console.log(\"Token berhasil disimpan otomatis!\");\r",
-									"} else if (jsonData.authorisation && jsonData.authorisation.token) {\r",
-									"    pm.environment.set(\"token\", jsonData.authorisation.token);\r",
-									"}"
+									"pm.collectionVariables.set(\"mytoken\", jsonData.token);"
 								],
 								"type": "text/javascript",
 								"packages": {},
@@ -91,12 +195,14 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "admin@rental.com",
+									"value": "phaul@gmail.com",
+									"description": "Email yang sudah terdaftar saat register",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "password123",
+									"value": "phaul77",
+									"description": "password akun",
 									"type": "text"
 								}
 							]
@@ -109,23 +215,83 @@
 							"path": [
 								"login"
 							]
-						}
+						},
+						"description": "Endpoint untuk masuk ke aplikasi.\n\nNote: Request ini memiliki fitur Automation.  \nSetelah login sukses, \"Access Token\" akan otomatis tersimpan ke variable Postman."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "email",
+											"value": "phaul11@gmail.com",
+											"description": "Email yang sudah terdaftar saat register",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "phaul77",
+											"description": "password akun",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 11:05:22 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"user\": {\n        \"id\": 5,\n        \"name\": \"lisan al ghaib\",\n        \"email\": \"phaul11@gmail.com\",\n        \"email_verified_at\": null,\n        \"phone\": \"1234567\",\n        \"address\": \"arrakis\",\n        \"sim_number\": null,\n        \"role\": \"customer\",\n        \"created_at\": \"2026-01-11T11:04:29.000000Z\",\n        \"updated_at\": \"2026-01-11T11:04:29.000000Z\"\n    },\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzY4MTI5NTIyLCJleHAiOjE3NjgxMzMxMjIsIm5iZiI6MTc2ODEyOTUyMiwianRpIjoib3NVNTlrUXdTUFh6UXpVYSIsInN1YiI6IjUiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImN1c3RvbWVyIn0.tB-mx7QuW6VmbYr7AwQ-QcfxDVt6fbnRoBR_fV0G14M\"\n}"
+						}
+					]
 				},
 				{
 					"name": "Log Out",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzY4MDMxODA5LCJleHAiOjE3NjgwMzU0MDksIm5iZiI6MTc2ODAzMTgwOSwianRpIjoiaDNmcDFmNTdIRXNaS05URiIsInN1YiI6IjciLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImN1c3RvbWVyIn0.SH9AEHJt8t__NtWbXxbsLJPNtmahjJTSonCSTWad2qY",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"url": {
@@ -136,9 +302,96 @@
 							"path": [
 								"logout"
 							]
-						}
+						},
+						"description": "Endpoint untuk mengakhiri sesi.  \nMemerlukan **Auth Token** (Login terlebih dahulu)."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Log Out",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/logout",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"logout"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 11:07:51 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Logout berhasil\"\n}"
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{mytoken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -148,6 +401,9 @@
 				{
 					"name": "List Categories",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -158,23 +414,66 @@
 							"path": [
 								"categories"
 							]
-						}
+						},
+						"description": "Endpoint ini digunakan untuk mengambil seluruh daftar kategori mobil yang tersedia (misal: SUV, MPV, Sedan).\n\n**Status: Public API** (Tidak memerlukan Login/Token).\n\n**Kegunaan:**  \nData dari endpoint ini biasanya digunakan untuk mengisi **Menu** pada Bagian pencarian mobil atau saat Admin ingin menambahkan mobil baru."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "List Categories",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/categories",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 11:12:25 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"MPV\",\n            \"created_at\": \"2026-01-11T10:31:40.000000Z\",\n            \"updated_at\": \"2026-01-11T10:31:40.000000Z\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Sedan\",\n            \"created_at\": \"2026-01-11T10:31:40.000000Z\",\n            \"updated_at\": \"2026-01-11T10:31:40.000000Z\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"SUV\",\n            \"created_at\": \"2026-01-11T10:31:40.000000Z\",\n            \"updated_at\": \"2026-01-11T10:31:40.000000Z\"\n        }\n    ]\n}"
+						}
+					]
 				},
 				{
 					"name": "Create Categories(Admin)",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzY4MDE2MDc2LCJleHAiOjE3NjgwMTk2NzYsIm5iZiI6MTc2ODAxNjA3NiwianRpIjoiMktUNWJJQk5KcXZGZ2ZNdiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImFkbWluIn0.SB4UGBuG_Qelv5t-QMTBfoZp0u7FbwhVjLO1SezoPTE",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -182,46 +481,101 @@
 							"urlencoded": [
 								{
 									"key": "name",
-									"value": "Lcgc",
+									"value": "Luxury",
+									"description": "misal: SUV,MPV,Sedan,dll",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/categories?=&=",
+							"raw": "{{base_url}}/categories",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"categories"
-							],
-							"query": [
+							]
+						},
+						"description": "Endpoint untuk menambahkan Kategori Mobil baru (misal: \"Sport\", \"Truck\", \"Electric\").\n\n**Akses:**  \nMemerlukan Token (Login). Hanya diakses oleh Role Admin."
+					},
+					"response": [
+						{
+							"name": "Create Categories(Admin)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Luxury",
+											"description": "misal: SUV,MPV,Sedan,dll",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/categories?=&=",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"categories"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": ""
+										},
+										{
+											"key": "",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
 								{
-									"key": "",
-									"value": ""
+									"key": "Host",
+									"value": "127.0.0.1:8000"
 								},
 								{
-									"key": "",
-									"value": ""
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 11:15:53 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
 								}
-							]
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Kategori berhasil ditambahkan\",\n    \"data\": {\n        \"name\": \"Luxury\",\n        \"updated_at\": \"2026-01-11T11:15:53.000000Z\",\n        \"created_at\": \"2026-01-11T11:15:53.000000Z\",\n        \"id\": 4\n    }\n}"
 						}
-					},
-					"response": []
+					]
 				},
 				{
 					"name": "Update Categories By Id(Admin)",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzY4MDE2MDc2LCJleHAiOjE3NjgwMTk2NzYsIm5iZiI6MTc2ODAxNjA3NiwianRpIjoiMktUNWJJQk5KcXZGZ2ZNdiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImFkbWluIn0.SB4UGBuG_Qelv5t-QMTBfoZp0u7FbwhVjLO1SezoPTE",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -230,50 +584,187 @@
 								{
 									"key": "name",
 									"value": "LMPV",
+									"description": "Nam Pengganti Kategori ",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/categories/6",
+							"raw": "{{base_url}}/categories/2",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"categories",
-								"6"
+								"2"
 							]
-						}
+						},
+						"description": "Endpoint untuk memperbarui nama kategori berdasarkan ID kategori yang sudah di buat. Hanya di akses oleh role Admin.\n\n**Catatan:**  \nNama kategori baru tidak boleh sama dengan nama kategori yang sudah ada.\n\n**Catatan URL:**  \nPada URL contoh di atas tertulis `/categories/3`.  \nSilakan ganti angka `3` dengan **ID Kategori** yang ingin Di Update\n\n(misal: `/categories/10`)."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Update Categories By Id(Admin)",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "LMPV",
+											"description": "Nam Pengganti Kategori ",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/categories/2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"categories",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 11:18:41 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Kategori berhasil diupdate\",\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"LMPV\",\n        \"created_at\": \"2026-01-11T10:31:40.000000Z\",\n        \"updated_at\": \"2026-01-11T11:18:41.000000Z\"\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Delete Categories By Id(Admin)",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
 								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzY4MDE2MDc2LCJleHAiOjE3NjgwMTk2NzYsIm5iZiI6MTc2ODAxNjA3NiwianRpIjoiMktUNWJJQk5KcXZGZ2ZNdiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImFkbWluIn0.SB4UGBuG_Qelv5t-QMTBfoZp0u7FbwhVjLO1SezoPTE",
-									"type": "string"
+									"key": "",
+									"value": "",
+									"type": "text"
 								}
 							]
 						},
-						"method": "DELETE",
-						"header": [],
 						"url": {
-							"raw": "{{base_url}}/categories/6",
+							"raw": "{{base_url}}/categories/3",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"categories",
-								"6"
+								"3"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
 							]
-						}
+						},
+						"description": "Endpoint untuk menghapus kategori. Hanya Diakses Oleh Admin\n\n**Catatan URL:**  \nPada URL contoh di atas tertulis `/categories/3`.  \nSilakan ganti angka `3` dengan **ID Kategori** yang ingin Anda hapus\n\n(misal: `/categories/10`)."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Delete Categories By Id(Admin)",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/categories/3",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"categories",
+										"3"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 11:22:32 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Kategori berhasil dihapus\"\n}"
+						}
+					]
 				}
 			]
 		},
@@ -283,6 +774,9 @@
 				{
 					"name": "List Car",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -292,17 +786,63 @@
 							],
 							"path": [
 								"cars"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": "",
-									"disabled": true
-								}
 							]
-						}
+						},
+						"description": "Endpoint untuk melihat katalog seluruh mobil yang tersedia.\n\n  \n**Status: Public API** (Bisa diakses tanpa Login/Token)."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "List Car",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/cars",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cars"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 11:34:28 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 2,\n            \"category_id\": 2,\n            \"name\": \"Honda Civic Turbo\",\n            \"brand\": \"Honda\",\n            \"model\": \"2023\",\n            \"plate_number\": \"D 1234 XYZ\",\n            \"daily_rent_price\": \"850000.00\",\n            \"is_available\": 1,\n            \"image\": \"civic.jpg\",\n            \"created_at\": \"2026-01-11T10:31:40.000000Z\",\n            \"updated_at\": \"2026-01-11T10:31:40.000000Z\",\n            \"category\": {\n                \"id\": 2,\n                \"name\": \"LMPV\",\n                \"created_at\": \"2026-01-11T10:31:40.000000Z\",\n                \"updated_at\": \"2026-01-11T11:18:41.000000Z\"\n            }\n        },\n        {\n            \"id\": 3,\n            \"category_id\": 1,\n            \"name\": \"f\",\n            \"brand\": \"f\",\n            \"model\": \"f\",\n            \"plate_number\": \"ff\",\n            \"daily_rent_price\": \"4.00\",\n            \"is_available\": 1,\n            \"image\": \"cars/knSNcMHa7jrWKE3bE9Se88EsYWr7qfshaQKlNrUU.jpg\",\n            \"created_at\": \"2026-01-11T10:35:27.000000Z\",\n            \"updated_at\": \"2026-01-11T10:35:27.000000Z\",\n            \"category\": {\n                \"id\": 1,\n                \"name\": \"MPV\",\n                \"created_at\": \"2026-01-11T10:31:40.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:40.000000Z\"\n            }\n        }\n    ]\n}"
+						}
+					]
 				},
 				{
 					"name": "List Car By Categories Id",
@@ -310,31 +850,14 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzY4MDIyNjU1LCJleHAiOjE3NjgwMjYyNTUsIm5iZiI6MTc2ODAyMjY1NSwianRpIjoiaHdDbHVnT001SXp4dnA0YiIsInN1YiI6IjYiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImN1c3RvbWVyIn0.jcPh8ieEAfYvhH3Uws6E2qxrMLosw0Q3WvdTrWxXxmM",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "",
-									"value": "",
-									"type": "text",
-									"disabled": true
-								}
-							]
+							"urlencoded": []
 						},
 						"url": {
-							"raw": "{{base_url}}/cars/?category_id=5",
+							"raw": "{{base_url}}/cars/?category_id=2",
 							"host": [
 								"{{base_url}}"
 							],
@@ -345,12 +868,76 @@
 							"query": [
 								{
 									"key": "category_id",
-									"value": "5"
+									"value": "2"
 								}
 							]
-						}
+						},
+						"description": "Endpoint untuk menampilkan daftar mobil yang sudah difilter berdasarkan kategori. Menggunakan id kategori yang sudah di buat.\n\n**Status: Public API** (Bisa diakses tanpa Login/Token)."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "List Car By Categories Id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{base_url}}/cars/?category_id=2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cars",
+										""
+									],
+									"query": [
+										{
+											"key": "category_id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 11:44:21 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 2,\n            \"category_id\": 2,\n            \"name\": \"Honda Civic Turbo\",\n            \"brand\": \"Honda\",\n            \"model\": \"2023\",\n            \"plate_number\": \"D 1234 XYZ\",\n            \"daily_rent_price\": \"850000.00\",\n            \"is_available\": 1,\n            \"image\": \"civic.jpg\",\n            \"created_at\": \"2026-01-11T10:31:40.000000Z\",\n            \"updated_at\": \"2026-01-11T10:31:40.000000Z\",\n            \"category\": {\n                \"id\": 2,\n                \"name\": \"LMPV\",\n                \"created_at\": \"2026-01-11T10:31:40.000000Z\",\n                \"updated_at\": \"2026-01-11T11:18:41.000000Z\"\n            }\n        }\n    ]\n}"
+						}
+					]
 				},
 				{
 					"name": "Detail Car By Id",
@@ -358,31 +945,75 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/cars/9",
+							"raw": "{{base_url}}/cars/2",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"cars",
-								"9"
+								"2"
 							]
-						}
+						},
+						"description": "untuk menampilkan detail mobil menggunakan id berdasarkan mobil yg tersedia\n\n**Status: Public API** (Bisa diakses tanpa Login/Token).\n\n**Catatan URL:**  \nPada URL contoh di atas tertulis `/cars/2`.  \nSilakan ganti angka 2 dengan **ID Mobil** yang ingin di ambil\n\n(misal: `/cars/3`)."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Detail Car By Id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/cars/2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cars",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 11:48:48 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": 2,\n        \"category_id\": 2,\n        \"name\": \"Honda Civic Turbo\",\n        \"brand\": \"Honda\",\n        \"model\": \"2023\",\n        \"plate_number\": \"D 1234 XYZ\",\n        \"daily_rent_price\": \"850000.00\",\n        \"is_available\": 1,\n        \"image\": \"civic.jpg\",\n        \"created_at\": \"2026-01-11T10:31:40.000000Z\",\n        \"updated_at\": \"2026-01-11T10:31:40.000000Z\",\n        \"category\": {\n            \"id\": 2,\n            \"name\": \"LMPV\",\n            \"created_at\": \"2026-01-11T10:31:40.000000Z\",\n            \"updated_at\": \"2026-01-11T11:18:41.000000Z\"\n        },\n        \"reviews\": []\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Add Car(Admin)",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzY4MDIzMDYzLCJleHAiOjE3NjgwMjY2NjMsIm5iZiI6MTc2ODAyMzA2MywianRpIjoicjd1TmNwblJzSUpUZ005TiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImFkbWluIn0.N8dUG5vVeLW34u1FTqWOAjEuZtuMo1pkEd2tD5OIfAI",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -390,38 +1021,45 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "Hilux MT",
+									"value": "Alphard",
+									"description": "masukan nama mobil",
 									"type": "text"
 								},
 								{
 									"key": "brand",
 									"value": "Toyota",
+									"description": "masukan merk mobil dan type mobil",
 									"type": "text"
 								},
 								{
 									"key": "model",
-									"value": "2023",
+									"value": "2024",
+									"description": "masukan tahun keluaran mobil",
 									"type": "text"
 								},
 								{
 									"key": "plate_number",
-									"value": "DR 9861 KL",
+									"value": "B 999 Kia",
+									"description": "masukan nomot plat mobil",
 									"type": "text"
 								},
 								{
 									"key": "daily_rent_price",
-									"value": "400000",
+									"value": "600000",
+									"description": "harga perhari",
 									"type": "text"
 								},
 								{
 									"key": "category_id",
-									"value": "4",
+									"value": "2",
+									"description": "gunakan id kategori yg sudah di buat",
 									"type": "text"
 								},
 								{
 									"key": "image",
+									"description": "upload foto mobil",
 									"type": "file",
-									"src": "/C:/Users/r3noo/Downloads/download (4).jpg"
+									"src": "/C:/Users/r3noo/Downloads/download (10).jpg"
 								}
 							]
 						},
@@ -433,23 +1071,113 @@
 							"path": [
 								"cars"
 							]
-						}
+						},
+						"description": "Endpoint untuk menginput data mobil baru ke database.\n\n**Role:**  \nHanya dapat diakses oleh **Admin**.\n\n**Format Request:**  \nWajib menggunakan (`form-data)` karena mendukung upload file gambar."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Add Car(Admin)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Alphard",
+											"description": "masukan nama mobil",
+											"type": "text"
+										},
+										{
+											"key": "brand",
+											"value": "Toyota",
+											"description": "masukan merk mobil dan type mobil",
+											"type": "text"
+										},
+										{
+											"key": "model",
+											"value": "2024",
+											"description": "masukan tahun keluaran mobil",
+											"type": "text"
+										},
+										{
+											"key": "plate_number",
+											"value": "B 999 Kia",
+											"description": "masukan nomot plat mobil",
+											"type": "text"
+										},
+										{
+											"key": "daily_rent_price",
+											"value": "600000",
+											"description": "harga perhari",
+											"type": "text"
+										},
+										{
+											"key": "category_id",
+											"value": "2",
+											"description": "gunakan id kategori yg sudah di buat",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"description": "upload foto mobil",
+											"type": "file",
+											"src": "/C:/Users/r3noo/Downloads/download (10).jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/cars",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cars"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 11:53:00 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Mobil berhasil ditambahkan\",\n    \"data\": {\n        \"category_id\": \"2\",\n        \"name\": \"Alphard\",\n        \"brand\": \"Toyota\",\n        \"model\": \"2024\",\n        \"plate_number\": \"B 999 Kia\",\n        \"daily_rent_price\": \"600000\",\n        \"is_available\": true,\n        \"image\": \"cars/eJOKgZ0EHSXdvi6mmY7Kyni7DMY3TqGEyQZWTmYl.jpg\",\n        \"updated_at\": \"2026-01-11T11:53:00.000000Z\",\n        \"created_at\": \"2026-01-11T11:53:00.000000Z\",\n        \"id\": 4\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Update Car By Id(Admin)",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzY4MDIzNzAwLCJleHAiOjE3NjgwMjczMDAsIm5iZiI6MTc2ODAyMzcwMCwianRpIjoiZ3dLVkFqdUJzRUhuUEJveSIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImFkbWluIn0.CF1JuykXQMHAuYdJkgxhjm5FJgGzTv-Uako6R99ibKA",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -462,67 +1190,163 @@
 								},
 								{
 									"key": "name",
-									"value": "Hilux MT",
+									"value": "Alphard",
+									"description": "masukan nama pengganti",
 									"type": "text"
 								},
 								{
 									"key": "brand",
 									"value": "Toyota",
+									"description": "masukan merk pengganti",
 									"type": "text"
 								},
 								{
 									"key": "model",
-									"value": "2023",
+									"value": "2024",
+									"description": "masukan tahun penganti",
 									"type": "text"
 								},
 								{
 									"key": "plate_number",
-									"value": "B 112 KK",
+									"value": "B 999 KIC",
+									"description": "masukan plat pengganti",
 									"type": "text"
 								},
 								{
 									"key": "daily_rent_place",
-									"value": "400000",
+									"value": "700000",
+									"description": "masukan harga pengganti",
 									"type": "text"
 								},
 								{
 									"key": "category_id",
-									"value": "3",
+									"value": "2",
+									"description": "masukan kategori pengganti",
 									"type": "text"
 								},
 								{
 									"key": "image",
+									"description": "masukan foto pengganti",
 									"type": "file",
 									"src": []
 								}
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/cars/7",
+							"raw": "{{base_url}}/cars/4",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"cars",
-								"7"
+								"4"
 							]
-						}
+						},
+						"description": "Endpoint untuk memperbarui data mobil (termasuk upload gambar baru).\n\n**Catatan Teknis (PENTING):**  \nMeski ini adalah fitur Update, request ini menggunakan Method **POST** dengan tambahan body parameter `_method: PUT`. Hal ini diperlukan karena standard method `PUT` sering bermasalah saat menangani upload file (`multipart/form-data`).\n\n**Aturan Update:**\n\n- Kirim data gambar hanya jika ingin mengubah foto. Jika dikosongkan, foto lama tetap tersimpan.\n    \n\n**Catatan URL:**  \nPada URL contoh di atas tertulis `/cars/3`.  \nSilakan ganti angka 3 dengan **ID Mobil** yang ingin di ubah\n\n(misal: `/cars/4`)."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Update Car By Id(Admin)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "_method",
+											"value": "PUT",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "Alphard",
+											"type": "text"
+										},
+										{
+											"key": "brand",
+											"value": "Toyota",
+											"type": "text"
+										},
+										{
+											"key": "model",
+											"value": "2024",
+											"type": "text"
+										},
+										{
+											"key": "plate_number",
+											"value": "B 999 KIC",
+											"type": "text"
+										},
+										{
+											"key": "daily_rent_place",
+											"value": "700000",
+											"type": "text"
+										},
+										{
+											"key": "category_id",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/cars/4",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cars",
+										"4"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 11:58:38 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Data mobil diperbarui\",\n    \"data\": {\n        \"id\": 4,\n        \"category_id\": \"2\",\n        \"name\": \"Alphard\",\n        \"brand\": \"Toyota\",\n        \"model\": \"2024\",\n        \"plate_number\": \"B 999 KIC\",\n        \"daily_rent_price\": \"600000.00\",\n        \"is_available\": 1,\n        \"image\": \"cars/eJOKgZ0EHSXdvi6mmY7Kyni7DMY3TqGEyQZWTmYl.jpg\",\n        \"created_at\": \"2026-01-11T11:53:00.000000Z\",\n        \"updated_at\": \"2026-01-11T11:58:38.000000Z\"\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Update Car Status By Id(Admin)",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzY4MDI0OTM2LCJleHAiOjE3NjgwMjg1MzYsIm5iZiI6MTc2ODAyNDkzNiwianRpIjoiZDJOaUtubUVrMHRaWFpGUCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImFkbWluIn0.bVi4BI1MUSOXoikab8ydIEACVPPQq9pu-mvo948pKM0",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PATCH",
 						"header": [
 							{
@@ -537,13 +1361,15 @@
 								{
 									"key": "is_available",
 									"value": "1",
-									"type": "text"
+									"description": "1 (untuk tersedia)",
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "is_available",
 									"value": "0",
-									"type": "text",
-									"disabled": true
+									"description": "0 (untuk tidak tersedia)",
+									"type": "text"
 								},
 								{
 									"key": "",
@@ -554,7 +1380,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/cars/7/status",
+							"raw": "http://127.0.0.1:8000/api/cars/4/status",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -566,40 +1392,175 @@
 							"path": [
 								"api",
 								"cars",
-								"7",
+								"4",
 								"status"
 							]
-						}
+						},
+						"description": "Endpoint khusus untuk mengubah status ketersediaan mobil secara manual.  \nUse Case (Kegunaan):  \nDigunakan oleh Admin ketika mobil fisik sedang tidak bisa disewakan, misalnya:  \n1\\. Mobil sedang diservis/masuk bengkel (Set to \\`maintenance\\`).  \n2\\. Mobil sudah selesai diservis dan siap disewakan lagi (Set to \\`available\\`).\n\n**Catatan URL:**  \nPada URL contoh di atas tertulis `/cars/4/status`.  \nSilakan ganti angka 4 dengan **ID Mobil** yang ingin di ubah\n\n(misal: `/cars/5/status`)."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Update Car Status By Id(Admin)",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "is_available",
+											"value": "1",
+											"description": "1 (untuk tersedia)",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "is_available",
+											"value": "0",
+											"description": "0 (untuk tidak tersedia)",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/cars/4/status",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"cars",
+										"4",
+										"status"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 12:07:54 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Status mobil berhasil diubah\",\n    \"data\": {\n        \"id\": 4,\n        \"category_id\": 2,\n        \"name\": \"Alphard\",\n        \"brand\": \"Toyota\",\n        \"model\": \"2024\",\n        \"plate_number\": \"B 999 KIC\",\n        \"daily_rent_price\": \"600000.00\",\n        \"is_available\": \"0\",\n        \"image\": \"cars/eJOKgZ0EHSXdvi6mmY7Kyni7DMY3TqGEyQZWTmYl.jpg\",\n        \"created_at\": \"2026-01-11T11:53:00.000000Z\",\n        \"updated_at\": \"2026-01-11T12:07:54.000000Z\"\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Delete Car By Id(Admin)",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzY4MDI0OTM2LCJleHAiOjE3NjgwMjg1MzYsIm5iZiI6MTc2ODAyNDkzNiwianRpIjoiZDJOaUtubUVrMHRaWFpGUCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImFkbWluIn0.bVi4BI1MUSOXoikab8ydIEACVPPQq9pu-mvo948pKM0",
-									"type": "string"
-								}
-							]
-						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/cars/7",
+							"raw": "{{base_url}}/cars/4",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"cars",
-								"7"
+								"4"
 							]
-						}
+						},
+						"description": "Endpoint untuk menghapus data mobil dari sistem.\n\n**Catatan URL:**  \nPada URL contoh di atas tertulis `/cars/4`.  \nSilakan ganti angka 4 dengan **ID Mobil** yang ingin di hapus\n\n(misal: `/cars/5`)."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Delete Car By Id(Admin)",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/cars/4",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cars",
+										"4"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 12:08:10 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Mobil berhasil dihapus\"\n}"
+						}
+					]
 				}
 			]
 		},
@@ -609,16 +1570,6 @@
 				{
 					"name": "Create Booking(Customer)",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzY4MDMxODMxLCJleHAiOjE3NjgwMzU0MzEsIm5iZiI6MTc2ODAzMTgzMSwianRpIjoiZTh4REtKREtwSGR2V0t2SyIsInN1YiI6IjciLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImN1c3RvbWVyIn0.fJa77KZNh6L7UCHFZ1VpzthkBSEGnTG-x-AEjcZajn8",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -626,17 +1577,20 @@
 							"urlencoded": [
 								{
 									"key": "car_id",
-									"value": "9",
+									"value": "3",
+									"description": "masukan id mobil yang ingin di booking",
 									"type": "text"
 								},
 								{
 									"key": "start_date",
-									"value": "2026-01-20",
+									"value": "2026-02-28",
+									"description": "masukan tanggal mulai boking",
 									"type": "text"
 								},
 								{
 									"key": "end_date",
-									"value": "2026-01-22",
+									"value": "2026-03-02",
+									"description": "masukan tanggal akhir boking",
 									"type": "text"
 								}
 							]
@@ -649,9 +1603,85 @@
 							"path": [
 								"bookings"
 							]
-						}
+						},
+						"description": "Endpoint untuk Customer melakukan pemesanan sewa mobil.\n\n**Logika Sistem (PENTING):**\n\n1. **Validasi:** Sistem akan menolak jika tanggal yang dipilih bertabrakan dengan pesanan orang lain pada mobil yang sama.\n    \n2. **Kalkulasi Harga:** Backend akan otomatis menghitung: `(End Date - Start Date) \\\\* Harga Harian Mobil`.\n    \n3. **Status Awal:** Transaksi baru otomatis berstatus `pending` hingga melakukan pembayaran (atau `booked`)."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Create Booking(Customer)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "car_id",
+											"value": "2",
+											"description": "masukan id mobil yang ingin di booking",
+											"type": "text"
+										},
+										{
+											"key": "start_date",
+											"value": "2026-02-28",
+											"description": "masukan tanggal mulai boking",
+											"type": "text"
+										},
+										{
+											"key": "end_date",
+											"value": "2026-03-02",
+											"description": "masukan tanggal akhir boking",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/bookings",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"bookings"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 12:12:07 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Booking berhasil dibuat\",\n    \"data\": {\n        \"user_id\": 1,\n        \"car_id\": \"2\",\n        \"start_date\": \"2026-02-28\",\n        \"end_date\": \"2026-03-02\",\n        \"total_price\": 2550000,\n        \"status\": \"pending\",\n        \"updated_at\": \"2026-01-11T12:12:07.000000Z\",\n        \"created_at\": \"2026-01-11T12:12:07.000000Z\",\n        \"id\": 1\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "My Bokings(Customer)",
@@ -659,16 +1689,6 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzY4MDMxODMxLCJleHAiOjE3NjgwMzU0MzEsIm5iZiI6MTc2ODAzMTgzMSwianRpIjoiZTh4REtKREtwSGR2V0t2SyIsInN1YiI6IjciLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImN1c3RvbWVyIn0.fJa77KZNh6L7UCHFZ1VpzthkBSEGnTG-x-AEjcZajn8",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -683,37 +1703,138 @@
 							"path": [
 								"bookings"
 							]
-						}
+						},
+						"description": "Untuk melihat history boking yg sudah di lakukan baik yang sudah di bayar atau belum. Hanya untuk customer"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "My Bokings(Customer)",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/bookings",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"bookings"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 12:17:25 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 2,\n            \"user_id\": 3,\n            \"car_id\": 3,\n            \"start_date\": \"2026-02-28\",\n            \"end_date\": \"2026-03-02\",\n            \"total_price\": \"12.00\",\n            \"status\": \"pending\",\n            \"created_at\": \"2026-01-11T12:16:07.000000Z\",\n            \"updated_at\": \"2026-01-11T12:16:07.000000Z\",\n            \"car\": {\n                \"id\": 3,\n                \"category_id\": 1,\n                \"name\": \"f\",\n                \"brand\": \"f\",\n                \"model\": \"f\",\n                \"plate_number\": \"ff\",\n                \"daily_rent_price\": \"4.00\",\n                \"is_available\": 1,\n                \"image\": \"cars/knSNcMHa7jrWKE3bE9Se88EsYWr7qfshaQKlNrUU.jpg\",\n                \"created_at\": \"2026-01-11T10:35:27.000000Z\",\n                \"updated_at\": \"2026-01-11T10:35:27.000000Z\"\n            },\n            \"payment\": null\n        }\n    ]\n}"
+						}
+					]
 				},
 				{
 					"name": "Detail Bookings By Id",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzY4MDMxODMxLCJleHAiOjE3NjgwMzU0MzEsIm5iZiI6MTc2ODAzMTgzMSwianRpIjoiZTh4REtKREtwSGR2V0t2SyIsInN1YiI6IjciLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImN1c3RvbWVyIn0.fJa77KZNh6L7UCHFZ1VpzthkBSEGnTG-x-AEjcZajn8",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/bookings/14",
+							"raw": "{{base_url}}/bookings/2",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"bookings",
-								"14"
+								"2"
 							]
-						}
+						},
+						"description": "Endpoint untuk mengambil data detail satu transaksi penyewaan.\n\n**Logic & Security:**\n\n- **Relation:** Response menyertakan relasi data `user` (penyewa) dan `car` (mobil yang disewa).\n    \n- **Ownership Check:** Sistem akan memvalidasi kepemilikan.\n    \n    - **User:** Hanya bisa melihat transaksi miliknya sendiri.\n        \n    - **Admin:** Bisa melihat transaksi milik siapa saja.\n        \n\n**Catatan URL:**  \nPada URL contoh di atas tertulis `/bookings/2`.  \nSilakan ganti angka 2 dengan **ID Mobil** yang ingin di hapus\n\n(misal: `/bookings/5`)."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Detail Bookings By Id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/bookings/2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"bookings",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 12:26:23 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": 2,\n        \"user_id\": 3,\n        \"car_id\": 3,\n        \"start_date\": \"2026-02-28\",\n        \"end_date\": \"2026-03-02\",\n        \"total_price\": \"12.00\",\n        \"status\": \"pending\",\n        \"created_at\": \"2026-01-11T12:16:07.000000Z\",\n        \"updated_at\": \"2026-01-11T12:16:07.000000Z\",\n        \"user\": {\n            \"id\": 3,\n            \"name\": \"lisan al ghaib\",\n            \"email\": \"phaul@gmail.com\",\n            \"email_verified_at\": null,\n            \"phone\": \"1234567\",\n            \"address\": \"arrakis\",\n            \"sim_number\": null,\n            \"role\": \"customer\",\n            \"created_at\": \"2026-01-11T10:43:39.000000Z\",\n            \"updated_at\": \"2026-01-11T10:43:39.000000Z\"\n        },\n        \"car\": {\n            \"id\": 3,\n            \"category_id\": 1,\n            \"name\": \"f\",\n            \"brand\": \"f\",\n            \"model\": \"f\",\n            \"plate_number\": \"ff\",\n            \"daily_rent_price\": \"4.00\",\n            \"is_available\": 1,\n            \"image\": \"cars/knSNcMHa7jrWKE3bE9Se88EsYWr7qfshaQKlNrUU.jpg\",\n            \"created_at\": \"2026-01-11T10:35:27.000000Z\",\n            \"updated_at\": \"2026-01-11T10:35:27.000000Z\"\n        },\n        \"payment\": null\n    }\n}"
+						}
+					]
 				}
 			]
 		},
@@ -723,16 +1844,6 @@
 				{
 					"name": "Payment(Customer)",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzY4MDMxODMxLCJleHAiOjE3NjgwMzU0MzEsIm5iZiI6MTc2ODAzMTgzMSwianRpIjoiZTh4REtKREtwSGR2V0t2SyIsInN1YiI6IjciLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImN1c3RvbWVyIn0.fJa77KZNh6L7UCHFZ1VpzthkBSEGnTG-x-AEjcZajn8",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -740,23 +1851,27 @@
 							"formdata": [
 								{
 									"key": "booking_id",
-									"value": "14",
+									"value": "2",
+									"description": "masukan boking id sesuai boking yang sudah di buat",
 									"type": "text"
 								},
 								{
 									"key": "amount",
-									"value": "600000",
+									"value": "1050000",
+									"description": "masukan jumlah pembayaran",
 									"type": "text"
 								},
 								{
 									"key": "payment_method",
 									"value": "Transfer Bank",
+									"description": "masukan metode pembayaran",
 									"type": "text"
 								},
 								{
 									"key": "proof_image",
+									"description": "kirim bukti pembayaran",
 									"type": "file",
-									"src": "postman-cloud:///1f0edd73-cefd-4eb0-af77-c22bcc49fed3"
+									"src": "/C:/Users/r3noo/Downloads/download (10).jpg"
 								}
 							]
 						},
@@ -768,23 +1883,91 @@
 							"path": [
 								"payments"
 							]
-						}
+						},
+						"description": "Endpoint untuk Customer melakukan konfirmasi pembayaran dengan mengunggah bukti transfer.\n\n**Business Logic:**\n\n1. **Validasi Status:** Sistem hanya menerima pembayaran untuk transaksi dengan status `pending`. Jika transaksi sudah Verified atau `cancelled`, request akan ditolak.\n    \n2. **Update Status:** Setelah sukses upload, status transaksi berubah menjadi ( Verified jika sudah di verifikasi oleh Admin)."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Payment(Customer)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "booking_id",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "amount",
+											"value": "1050000",
+											"type": "text"
+										},
+										{
+											"key": "payment_method",
+											"value": "Transfer Bank",
+											"type": "text"
+										},
+										{
+											"key": "proof_image",
+											"type": "file",
+											"src": "/C:/Users/r3noo/Downloads/download (10).jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/payments",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"payments"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 12:27:36 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Pembayaran berhasil diproses\",\n    \"data\": {\n        \"booking_id\": \"2\",\n        \"payment_date\": \"2026-01-11T12:27:36.606893Z\",\n        \"amount\": \"1050000\",\n        \"payment_method\": \"Transfer Bank\",\n        \"proof_image\": \"payments/AUkk4ixG2GgO15q14Sb9e5kZgMBIeNNO4Y6p348V.jpg\",\n        \"status\": \"pending\",\n        \"updated_at\": \"2026-01-11T12:27:36.000000Z\",\n        \"created_at\": \"2026-01-11T12:27:36.000000Z\",\n        \"id\": 1\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Verify Payment By Id(Admin)",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzY4MDI2MTQyLCJleHAiOjE3NjgwMjk3NDIsIm5iZiI6MTc2ODAyNjE0MiwianRpIjoiOW9OYkx1OHpPMUY3Tm1QVCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImFkbWluIn0.7UU1WPwPQc-nc1n1fMKf0lSumIhEQMZF636jBYtNHNo",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PUT",
 						"header": [
 							{
@@ -799,28 +1982,106 @@
 								{
 									"key": "status",
 									"value": "failed",
-									"type": "text"
+									"description": "untuk menolak",
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "status",
 									"value": "verified",
-									"type": "text",
-									"disabled": true
+									"description": "untuk memverifikasi",
+									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/payments/5",
+							"raw": "{{base_url}}/payments/1",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"payments",
-								"5"
+								"1"
 							]
-						}
+						},
+						"description": "Endpoint khusus Admin untuk memverifikasi pembayaran customer.\n\n**Alur Bisnis:**\n\n1. Admin menerima notifikasi pembayaran baru.\n    \n2. Admin mengecek file gambar bukti transfer.\n    \n3. **Jika Valid:** Admin mengirim status Verified. Transaksi dianggap lunas & mobil siap diambil.\n    \n4. **Jika Tidak Valid:** Admin mengirim status `failed`. Transaksi dibatalkan atau customer diminta upload ulang.\n    \n5. **Catatan URL:**  \n    Pada URL contoh di atas tertulis `/payments/1`.  \n    Silakan ganti angka 1 dengan **ID Mobil** yang ingin di hapus(misal: `/payments/5`)."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Verify Payment By Id(Admin)",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "status",
+											"value": "failed",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "status",
+											"value": "verified",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/payments/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"payments",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 12:29:45 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Status pembayaran diperbarui\",\n    \"data\": {\n        \"id\": 1,\n        \"booking_id\": 2,\n        \"payment_date\": \"2026-01-11\",\n        \"amount\": \"1050000.00\",\n        \"payment_method\": \"Transfer Bank\",\n        \"proof_image\": \"payments/AUkk4ixG2GgO15q14Sb9e5kZgMBIeNNO4Y6p348V.jpg\",\n        \"status\": \"verified\",\n        \"created_at\": \"2026-01-11T12:27:36.000000Z\",\n        \"updated_at\": \"2026-01-11T12:29:45.000000Z\"\n    }\n}"
+						}
+					]
 				}
 			]
 		},
@@ -830,16 +2091,6 @@
 				{
 					"name": "Add Review(Customer)",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzY4MDMyODk0LCJleHAiOjE3NjgwMzY0OTQsIm5iZiI6MTc2ODAzMjg5NCwianRpIjoiQU5iMHVyTGxFc20yRVBFSyIsInN1YiI6IjciLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImN1c3RvbWVyIn0.PwRvvu__g3PRNxVd5QQ2kURfdf6zvxEbKKVYUIjH1HI",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -847,7 +2098,7 @@
 							"urlencoded": [
 								{
 									"key": "booking_id",
-									"value": "14",
+									"value": "2",
 									"type": "text"
 								},
 								{
@@ -870,25 +2121,88 @@
 							"path": [
 								"reviews"
 							]
-						}
+						},
+						"description": "Kegunaan untuk memberi ulasan pada mobil yang sudah di boking dan hanya bisa di gunakan ketika customer sudah benar benar membayar boking mobil dan menggunakan boking id untuk memberi ulasan pada mobil yang di boking"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Add Review(Customer)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "booking_id",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "rating",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "comment",
+											"value": "mobilnya nyaman",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/reviews",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"reviews"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 11 Jan 2026 12:46:34 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Review berhasil ditambahkan\",\n    \"data\": {\n        \"user_id\": 3,\n        \"car_id\": 3,\n        \"rating\": \"5\",\n        \"comment\": \"mobilnya nyaman\",\n        \"updated_at\": \"2026-01-11T12:46:34.000000Z\",\n        \"created_at\": \"2026-01-11T12:46:34.000000Z\",\n        \"id\": 1\n    }\n}"
+						}
+					]
 				}
 			]
 		},
 		{
 			"name": "Sistem Log(Admin)",
 			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzY4MDI2MTQyLCJleHAiOjE3NjgwMjk3NDIsIm5iZiI6MTc2ODAyNjE0MiwianRpIjoiOW9OYkx1OHpPMUY3Tm1QVCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6ImFkbWluIn0.7UU1WPwPQc-nc1n1fMKf0lSumIhEQMZF636jBYtNHNo",
-							"type": "string"
-						}
-					]
-				},
 				"method": "GET",
 				"header": [
 					{
@@ -905,9 +2219,120 @@
 					"path": [
 						"activity-logs"
 					]
-				}
+				},
+				"description": "Endpoint untuk melihat riwayat aktivitas pengguna dalam sistem.\n\n**Fungsi:**  \nDigunakan oleh Admin untuk memantau tindakan sensitif, seperti:\n\n- Login,Register & Logout user.\n    \n- Create/Update/Delete data mobil.\n    \n- Verifikasi pembayaran.\n    \n\n**Data yang dicatat:**  \nMeliputi Nama User, Jenis Aksi (Action), Deskripsi, IP Address, dan Waktu kejadian."
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Sistem Log(Admin)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/activity-logs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"activity-logs"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 Jan 2026 12:31:10 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 50,\n            \"user_id\": 1,\n            \"action\": \"UPDATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/payments/1\",\n            \"method\": \"PUT\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T12:29:45.000000Z\",\n            \"updated_at\": \"2026-01-11T12:29:45.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 49,\n            \"user_id\": 1,\n            \"action\": \"UPDATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/payments/2\",\n            \"method\": \"PUT\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T12:29:15.000000Z\",\n            \"updated_at\": \"2026-01-11T12:29:15.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 48,\n            \"user_id\": 1,\n            \"action\": \"UPDATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/payments/12\",\n            \"method\": \"PUT\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T12:29:09.000000Z\",\n            \"updated_at\": \"2026-01-11T12:29:09.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 47,\n            \"user_id\": 1,\n            \"action\": \"LOGIN\",\n            \"url\": \"http://127.0.0.1:8000/api/login\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T12:28:46.000000Z\",\n            \"updated_at\": \"2026-01-11T12:28:46.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 46,\n            \"user_id\": 3,\n            \"action\": \"CREATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/reviews\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T12:28:14.000000Z\",\n            \"updated_at\": \"2026-01-11T12:28:14.000000Z\",\n            \"user\": {\n                \"id\": 3,\n                \"name\": \"lisan al ghaib\",\n                \"email\": \"phaul@gmail.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"1234567\",\n                \"address\": \"arrakis\",\n                \"sim_number\": null,\n                \"role\": \"customer\",\n                \"created_at\": \"2026-01-11T10:43:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:43:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 45,\n            \"user_id\": 3,\n            \"action\": \"CREATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/payments\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T12:27:36.000000Z\",\n            \"updated_at\": \"2026-01-11T12:27:36.000000Z\",\n            \"user\": {\n                \"id\": 3,\n                \"name\": \"lisan al ghaib\",\n                \"email\": \"phaul@gmail.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"1234567\",\n                \"address\": \"arrakis\",\n                \"sim_number\": null,\n                \"role\": \"customer\",\n                \"created_at\": \"2026-01-11T10:43:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:43:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 44,\n            \"user_id\": 3,\n            \"action\": \"CREATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/payments\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T12:27:27.000000Z\",\n            \"updated_at\": \"2026-01-11T12:27:27.000000Z\",\n            \"user\": {\n                \"id\": 3,\n                \"name\": \"lisan al ghaib\",\n                \"email\": \"phaul@gmail.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"1234567\",\n                \"address\": \"arrakis\",\n                \"sim_number\": null,\n                \"role\": \"customer\",\n                \"created_at\": \"2026-01-11T10:43:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:43:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 43,\n            \"user_id\": 3,\n            \"action\": \"LOGIN\",\n            \"url\": \"http://127.0.0.1:8000/api/login\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T12:24:45.000000Z\",\n            \"updated_at\": \"2026-01-11T12:24:45.000000Z\",\n            \"user\": {\n                \"id\": 3,\n                \"name\": \"lisan al ghaib\",\n                \"email\": \"phaul@gmail.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"1234567\",\n                \"address\": \"arrakis\",\n                \"sim_number\": null,\n                \"role\": \"customer\",\n                \"created_at\": \"2026-01-11T10:43:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:43:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 42,\n            \"user_id\": 3,\n            \"action\": \"CREATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/bookings\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T12:16:07.000000Z\",\n            \"updated_at\": \"2026-01-11T12:16:07.000000Z\",\n            \"user\": {\n                \"id\": 3,\n                \"name\": \"lisan al ghaib\",\n                \"email\": \"phaul@gmail.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"1234567\",\n                \"address\": \"arrakis\",\n                \"sim_number\": null,\n                \"role\": \"customer\",\n                \"created_at\": \"2026-01-11T10:43:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:43:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 41,\n            \"user_id\": 3,\n            \"action\": \"CREATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/bookings\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T12:16:01.000000Z\",\n            \"updated_at\": \"2026-01-11T12:16:01.000000Z\",\n            \"user\": {\n                \"id\": 3,\n                \"name\": \"lisan al ghaib\",\n                \"email\": \"phaul@gmail.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"1234567\",\n                \"address\": \"arrakis\",\n                \"sim_number\": null,\n                \"role\": \"customer\",\n                \"created_at\": \"2026-01-11T10:43:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:43:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 40,\n            \"user_id\": 3,\n            \"action\": \"LOGIN\",\n            \"url\": \"http://127.0.0.1:8000/api/login\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T12:15:51.000000Z\",\n            \"updated_at\": \"2026-01-11T12:15:51.000000Z\",\n            \"user\": {\n                \"id\": 3,\n                \"name\": \"lisan al ghaib\",\n                \"email\": \"phaul@gmail.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"1234567\",\n                \"address\": \"arrakis\",\n                \"sim_number\": null,\n                \"role\": \"customer\",\n                \"created_at\": \"2026-01-11T10:43:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:43:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 38,\n            \"user_id\": 1,\n            \"action\": \"LOGIN\",\n            \"url\": \"http://127.0.0.1:8000/api/login\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"GuzzleHttp/7\",\n            \"created_at\": \"2026-01-11T12:14:39.000000Z\",\n            \"updated_at\": \"2026-01-11T12:14:39.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 39,\n            \"user_id\": null,\n            \"action\": \"CREATE DATA\",\n            \"url\": \"http://127.0.0.1:8001/login\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0\",\n            \"created_at\": \"2026-01-11T12:14:39.000000Z\",\n            \"updated_at\": \"2026-01-11T12:14:39.000000Z\",\n            \"user\": null\n        },\n        {\n            \"id\": 37,\n            \"user_id\": null,\n            \"action\": \"LOGOUT\",\n            \"url\": \"http://127.0.0.1:8000/api/logout\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"GuzzleHttp/7\",\n            \"created_at\": \"2026-01-11T12:14:34.000000Z\",\n            \"updated_at\": \"2026-01-11T12:14:34.000000Z\",\n            \"user\": null\n        },\n        {\n            \"id\": 36,\n            \"user_id\": 1,\n            \"action\": \"CREATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/bookings\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T12:12:07.000000Z\",\n            \"updated_at\": \"2026-01-11T12:12:07.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 35,\n            \"user_id\": 1,\n            \"action\": \"DELETE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/cars/4\",\n            \"method\": \"DELETE\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T12:08:10.000000Z\",\n            \"updated_at\": \"2026-01-11T12:08:10.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 34,\n            \"user_id\": 1,\n            \"action\": \"UPDATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/cars/4\",\n            \"method\": \"PUT\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T11:58:38.000000Z\",\n            \"updated_at\": \"2026-01-11T11:58:38.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 33,\n            \"user_id\": 1,\n            \"action\": \"UPDATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/cars/4\",\n            \"method\": \"PUT\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T11:58:33.000000Z\",\n            \"updated_at\": \"2026-01-11T11:58:33.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 32,\n            \"user_id\": 1,\n            \"action\": \"UPDATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/cars/4\",\n            \"method\": \"PUT\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T11:58:24.000000Z\",\n            \"updated_at\": \"2026-01-11T11:58:24.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 31,\n            \"user_id\": 1,\n            \"action\": \"UPDATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/cars/3\",\n            \"method\": \"PUT\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T11:57:52.000000Z\",\n            \"updated_at\": \"2026-01-11T11:57:52.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 30,\n            \"user_id\": 1,\n            \"action\": \"CREATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/cars\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T11:53:00.000000Z\",\n            \"updated_at\": \"2026-01-11T11:53:00.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 29,\n            \"user_id\": 1,\n            \"action\": \"DELETE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/categories\",\n            \"method\": \"DELETE\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T11:25:09.000000Z\",\n            \"updated_at\": \"2026-01-11T11:25:09.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 28,\n            \"user_id\": 1,\n            \"action\": \"DELETE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/categories\",\n            \"method\": \"DELETE\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T11:24:45.000000Z\",\n            \"updated_at\": \"2026-01-11T11:24:45.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 27,\n            \"user_id\": 1,\n            \"action\": \"DELETE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/categories?id=2\",\n            \"method\": \"DELETE\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T11:24:30.000000Z\",\n            \"updated_at\": \"2026-01-11T11:24:30.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 26,\n            \"user_id\": 1,\n            \"action\": \"DELETE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/categories/3\",\n            \"method\": \"DELETE\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T11:22:32.000000Z\",\n            \"updated_at\": \"2026-01-11T11:22:32.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 25,\n            \"user_id\": 1,\n            \"action\": \"DELETE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/categories/7\",\n            \"method\": \"DELETE\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T11:22:15.000000Z\",\n            \"updated_at\": \"2026-01-11T11:22:15.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 24,\n            \"user_id\": 1,\n            \"action\": \"DELETE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/categories/7\",\n            \"method\": \"DELETE\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T11:22:08.000000Z\",\n            \"updated_at\": \"2026-01-11T11:22:08.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 23,\n            \"user_id\": 1,\n            \"action\": \"UPDATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/categories/2\",\n            \"method\": \"PUT\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T11:18:41.000000Z\",\n            \"updated_at\": \"2026-01-11T11:18:41.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 22,\n            \"user_id\": 1,\n            \"action\": \"CREATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/categories\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T11:15:53.000000Z\",\n            \"updated_at\": \"2026-01-11T11:15:53.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 21,\n            \"user_id\": 1,\n            \"action\": \"LOGIN\",\n            \"url\": \"http://127.0.0.1:8000/api/login\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T11:13:19.000000Z\",\n            \"updated_at\": \"2026-01-11T11:13:19.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 20,\n            \"user_id\": null,\n            \"action\": \"LOGIN\",\n            \"url\": \"http://127.0.0.1:8000/api/login\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T11:13:05.000000Z\",\n            \"updated_at\": \"2026-01-11T11:13:05.000000Z\",\n            \"user\": null\n        },\n        {\n            \"id\": 19,\n            \"user_id\": null,\n            \"action\": \"LOGOUT\",\n            \"url\": \"http://127.0.0.1:8000/api/logout\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T11:07:51.000000Z\",\n            \"updated_at\": \"2026-01-11T11:07:51.000000Z\",\n            \"user\": null\n        },\n        {\n            \"id\": 18,\n            \"user_id\": 5,\n            \"action\": \"LOGIN\",\n            \"url\": \"http://127.0.0.1:8000/api/login\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T11:05:22.000000Z\",\n            \"updated_at\": \"2026-01-11T11:05:22.000000Z\",\n            \"user\": {\n                \"id\": 5,\n                \"name\": \"lisan al ghaib\",\n                \"email\": \"phaul11@gmail.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"1234567\",\n                \"address\": \"arrakis\",\n                \"sim_number\": null,\n                \"role\": \"customer\",\n                \"created_at\": \"2026-01-11T11:04:29.000000Z\",\n                \"updated_at\": \"2026-01-11T11:04:29.000000Z\"\n            }\n        },\n        {\n            \"id\": 17,\n            \"user_id\": 5,\n            \"action\": \"REGISTER\",\n            \"url\": \"http://127.0.0.1:8000/api/register\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T11:04:29.000000Z\",\n            \"updated_at\": \"2026-01-11T11:04:29.000000Z\",\n            \"user\": {\n                \"id\": 5,\n                \"name\": \"lisan al ghaib\",\n                \"email\": \"phaul11@gmail.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"1234567\",\n                \"address\": \"arrakis\",\n                \"sim_number\": null,\n                \"role\": \"customer\",\n                \"created_at\": \"2026-01-11T11:04:29.000000Z\",\n                \"updated_at\": \"2026-01-11T11:04:29.000000Z\"\n            }\n        },\n        {\n            \"id\": 16,\n            \"user_id\": 4,\n            \"action\": \"REGISTER\",\n            \"url\": \"http://127.0.0.1:8000/api/register\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T10:58:44.000000Z\",\n            \"updated_at\": \"2026-01-11T10:58:44.000000Z\",\n            \"user\": {\n                \"id\": 4,\n                \"name\": \"lisan al ghaib\",\n                \"email\": \"phaul4@gmail.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"1234567\",\n                \"address\": \"arrakis\",\n                \"sim_number\": null,\n                \"role\": \"customer\",\n                \"created_at\": \"2026-01-11T10:58:43.000000Z\",\n                \"updated_at\": \"2026-01-11T10:58:43.000000Z\"\n            }\n        },\n        {\n            \"id\": 15,\n            \"user_id\": 3,\n            \"action\": \"REGISTER\",\n            \"url\": \"http://127.0.0.1:8000/api/register\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"PostmanRuntime/7.51.0\",\n            \"created_at\": \"2026-01-11T10:43:39.000000Z\",\n            \"updated_at\": \"2026-01-11T10:43:39.000000Z\",\n            \"user\": {\n                \"id\": 3,\n                \"name\": \"lisan al ghaib\",\n                \"email\": \"phaul@gmail.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"1234567\",\n                \"address\": \"arrakis\",\n                \"sim_number\": null,\n                \"role\": \"customer\",\n                \"created_at\": \"2026-01-11T10:43:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:43:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 13,\n            \"user_id\": 1,\n            \"action\": \"CREATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/cars\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"GuzzleHttp/7\",\n            \"created_at\": \"2026-01-11T10:35:27.000000Z\",\n            \"updated_at\": \"2026-01-11T10:35:27.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 14,\n            \"user_id\": null,\n            \"action\": \"CREATE DATA\",\n            \"url\": \"http://127.0.0.1:8001/admin/cars\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0\",\n            \"created_at\": \"2026-01-11T10:35:27.000000Z\",\n            \"updated_at\": \"2026-01-11T10:35:27.000000Z\",\n            \"user\": null\n        },\n        {\n            \"id\": 11,\n            \"user_id\": 1,\n            \"action\": \"DELETE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/cars/1\",\n            \"method\": \"DELETE\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"GuzzleHttp/7\",\n            \"created_at\": \"2026-01-11T10:34:59.000000Z\",\n            \"updated_at\": \"2026-01-11T10:34:59.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 12,\n            \"user_id\": null,\n            \"action\": \"DELETE DATA\",\n            \"url\": \"http://127.0.0.1:8001/admin/cars/1\",\n            \"method\": \"DELETE\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0\",\n            \"created_at\": \"2026-01-11T10:34:59.000000Z\",\n            \"updated_at\": \"2026-01-11T10:34:59.000000Z\",\n            \"user\": null\n        },\n        {\n            \"id\": 9,\n            \"user_id\": 1,\n            \"action\": \"LOGIN\",\n            \"url\": \"http://127.0.0.1:8000/api/login\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"GuzzleHttp/7\",\n            \"created_at\": \"2026-01-11T10:34:53.000000Z\",\n            \"updated_at\": \"2026-01-11T10:34:53.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 10,\n            \"user_id\": null,\n            \"action\": \"CREATE DATA\",\n            \"url\": \"http://127.0.0.1:8001/login\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0\",\n            \"created_at\": \"2026-01-11T10:34:53.000000Z\",\n            \"updated_at\": \"2026-01-11T10:34:53.000000Z\",\n            \"user\": null\n        },\n        {\n            \"id\": 8,\n            \"user_id\": null,\n            \"action\": \"LOGOUT\",\n            \"url\": \"http://127.0.0.1:8000/api/logout\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"GuzzleHttp/7\",\n            \"created_at\": \"2026-01-11T10:34:46.000000Z\",\n            \"updated_at\": \"2026-01-11T10:34:46.000000Z\",\n            \"user\": null\n        },\n        {\n            \"id\": 6,\n            \"user_id\": 2,\n            \"action\": \"LOGIN\",\n            \"url\": \"http://127.0.0.1:8000/api/login\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"GuzzleHttp/7\",\n            \"created_at\": \"2026-01-11T10:33:52.000000Z\",\n            \"updated_at\": \"2026-01-11T10:33:52.000000Z\",\n            \"user\": {\n                \"id\": 2,\n                \"name\": \"Customer Setia\",\n                \"email\": \"customer@rental.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"08987654321\",\n                \"address\": \"Jl. Rumah Customer No. 1\",\n                \"sim_number\": null,\n                \"role\": \"customer\",\n                \"created_at\": \"2026-01-11T10:31:40.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:40.000000Z\"\n            }\n        },\n        {\n            \"id\": 7,\n            \"user_id\": null,\n            \"action\": \"CREATE DATA\",\n            \"url\": \"http://127.0.0.1:8001/login\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0\",\n            \"created_at\": \"2026-01-11T10:33:52.000000Z\",\n            \"updated_at\": \"2026-01-11T10:33:52.000000Z\",\n            \"user\": null\n        },\n        {\n            \"id\": 5,\n            \"user_id\": null,\n            \"action\": \"LOGOUT\",\n            \"url\": \"http://127.0.0.1:8000/api/logout\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"GuzzleHttp/7\",\n            \"created_at\": \"2026-01-11T10:33:19.000000Z\",\n            \"updated_at\": \"2026-01-11T10:33:19.000000Z\",\n            \"user\": null\n        },\n        {\n            \"id\": 4,\n            \"user_id\": 1,\n            \"action\": \"UPDATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/cars/1\",\n            \"method\": \"PUT\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"GuzzleHttp/7\",\n            \"created_at\": \"2026-01-11T10:32:45.000000Z\",\n            \"updated_at\": \"2026-01-11T10:32:45.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 3,\n            \"user_id\": 1,\n            \"action\": \"UPDATE DATA\",\n            \"url\": \"http://127.0.0.1:8000/api/cars/1\",\n            \"method\": \"PUT\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"GuzzleHttp/7\",\n            \"created_at\": \"2026-01-11T10:32:42.000000Z\",\n            \"updated_at\": \"2026-01-11T10:32:42.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 1,\n            \"user_id\": 1,\n            \"action\": \"LOGIN\",\n            \"url\": \"http://127.0.0.1:8000/api/login\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"GuzzleHttp/7\",\n            \"created_at\": \"2026-01-11T10:32:36.000000Z\",\n            \"updated_at\": \"2026-01-11T10:32:36.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"Admin Ganteng\",\n                \"email\": \"admin@admin.com\",\n                \"email_verified_at\": null,\n                \"phone\": \"081234567890\",\n                \"address\": \"Kantor Admin Pusat\",\n                \"sim_number\": null,\n                \"role\": \"admin\",\n                \"created_at\": \"2026-01-11T10:31:39.000000Z\",\n                \"updated_at\": \"2026-01-11T10:31:39.000000Z\"\n            }\n        },\n        {\n            \"id\": 2,\n            \"user_id\": null,\n            \"action\": \"CREATE DATA\",\n            \"url\": \"http://127.0.0.1:8001/login\",\n            \"method\": \"POST\",\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0\",\n            \"created_at\": \"2026-01-11T10:32:36.000000Z\",\n            \"updated_at\": \"2026-01-11T10:32:36.000000Z\",\n            \"user\": null\n        }\n    ]\n}"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{mytoken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": ""
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "token_jwt",
+			"value": ""
+		},
+		{
+			"key": "mytoken",
+			"value": ""
 		}
 	]
 }

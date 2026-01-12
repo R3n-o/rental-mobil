@@ -90,7 +90,7 @@
             uploadSection.classList.add('d-none'); 
             bankName.innerText = "BNI Virtual Account";
             accNumber.innerText = "8000{{ $booking['id'] }}{{ rand(100,999) }}"; 
-            btn.innerText = "Bayar Sekarang (Simulasi)";
+            btn.innerText = "Bayar sekarang";
         }
     }
 

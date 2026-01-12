@@ -138,7 +138,7 @@ Gunakan akun berikut untuk mencoba fitur aplikasi setelah melakukan seeding data
 | Role     | Email              | Password |
 |----------|--------------------|----------|
 | Admin    | admin@rental.com   | password |
-| Customer | jhon@example.com   | password |
+| Customer | john@example.com   | password |
 
 ### 📊 Ekspor ke Spreadsheet
 

@@ -20,39 +20,39 @@ class PaymentSeeder extends Seeder
         $confirmedBookings = Booking::where('status', 'confirmed')->get();
         $pendingBookings = Booking::where('status', 'pending')->get();
 
-        // Payments for completed bookings (confirmed payments)
+        // Payments for completed bookings (verified payments)
         foreach ($completedBookings as $booking) {
             Payment::create([
                 'booking_id' => $booking->id,
                 'payment_date' => Carbon::parse($booking->start_date)->subDays(1)->format('Y-m-d'),
                 'amount' => $booking->total_price,
-                'payment_method' => fake()->randomElement(['transfer', 'cash', 'credit_card']),
+                'payment_method' => fake()->randomElement(['transfer', 'e-wallet']),
                 'proof_image' => null,
-                'status' => 'confirmed',
+                'status' => 'verified',
             ]);
         }
 
-        // Payments for ongoing bookings (confirmed payments)
+        // Payments for ongoing bookings (verified payments)
         foreach ($ongoingBookings as $booking) {
             Payment::create([
                 'booking_id' => $booking->id,
                 'payment_date' => Carbon::parse($booking->start_date)->subDays(1)->format('Y-m-d'),
                 'amount' => $booking->total_price,
-                'payment_method' => fake()->randomElement(['transfer', 'cash', 'credit_card']),
+                'payment_method' => fake()->randomElement(['transfer', 'e-wallet']),
                 'proof_image' => null,
-                'status' => 'confirmed',
+                'status' => 'verified',
             ]);
         }
 
-        // Payments for confirmed bookings (confirmed payments)
+        // Payments for confirmed bookings (verified payments)
         foreach ($confirmedBookings as $booking) {
             Payment::create([
                 'booking_id' => $booking->id,
                 'payment_date' => Carbon::now()->format('Y-m-d'),
                 'amount' => $booking->total_price,
-                'payment_method' => fake()->randomElement(['transfer', 'credit_card']),
+                'payment_method' => fake()->randomElement(['transfer', 'e-wallet']),
                 'proof_image' => null,
-                'status' => 'confirmed',
+                'status' => 'verified',
             ]);
         }
 

@@ -3,7 +3,7 @@
 @section('title', 'Sewa Mobil Termurah')
 
 @section('content')
-<div class="p-5 mb-4 bg-primary rounded-3 text-white shadow" 
+<div class="p-5 mb-4 bg-primary rounded-3 text-white shadow"
      style="background: linear-gradient(45deg, #4e73df, #224abe);">
     <div class="container-fluid py-5">
         <h1 class="display-5 fw-bold">Jelajahi Perjalananmu</h1>
@@ -24,20 +24,20 @@
         Semua Mobil
     </a>
     @foreach($categories as $cat)
-        <a href="/?category_id={{ $cat['id'] }}" 
+        <a href="/?category_id={{ $cat['id'] }}"
            class="btn {{ request('category_id') == $cat['id'] ? 'btn-primary' : 'btn-outline-primary' }} rounded-pill px-4">
             {{ $cat['name'] }}
         </a>
     @endforeach
 </div>
-    
+
     <div class="row">
         @forelse($cars as $car)
         <div class="col-md-4 mb-4">
             <div class="card h-100 shadow-sm border-0 hover-effect">
                 <div style="height: 200px; overflow: hidden; background-color: #eee;">
                     @if(isset($car['image']) && $car['image'])
-                        <img src="{{ 'http://127.0.0.1:8000/storage/' . $car['image'] }}" 
+                        <img src="{{ config('app.url') . '/storage/' . $car['image'] }}"
                              class="card-img-top w-100 h-100" style="object-fit: cover;">
                     @else
                         <div class="d-flex justify-content-center align-items-center h-100 text-muted">
@@ -54,7 +54,7 @@
                         </div>
                         <span class="badge bg-dark">{{ $car['plate_number'] }}</span>
                     </div>
-                    
+
                     <hr>
 
                     <div class="d-flex justify-content-between align-items-center">
@@ -63,7 +63,7 @@
                             <span class="fw-bold text-primary fs-5">Rp {{ number_format($car['daily_rent_price'], 0, ',', '.') }}</span>
                             <small>/hari</small>
                         </div>
-                        
+
                         @if($car['is_available'])
                             <span class="badge bg-success rounded-pill px-3">Tersedia</span>
                         @else

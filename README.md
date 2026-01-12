@@ -86,6 +86,12 @@ php artisan jwt:secret
 Edit file `.env`:
 
 ```env
+APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=...
+APP_DEBUG=true
+APP_URL=[http://127.0.0.1:8000](http://127.0.0.1:8000)
+
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -108,12 +114,34 @@ php artisan storage:link
 ```
 
 ### 7. Jalankan Server
+Untuk menjalankan aplikasi lengkap (API Backend dan UI Frontend), Anda perlu menjalankan dua terminal secara bersamaan dengan port yang berbeda.
+
+Terminal 1 (Backend API): Jalankan server ini di port default 8000 untuk menangani request API dan database.
 
 ```bash
 php artisan serve
 ```
 
-Aplikasi akan berjalan di `http://localhost:8000`
+Server akan berjalan di: `http://127.0.0.1:8000`
+
+Terminal 2 (Frontend UI): Buka terminal baru, lalu jalankan server di port 8001 untuk tampilan Web.
+
+```bash
+php artisan serve --port=8001
+```
+
+Akses aplikasi melalui browser di: `http://127.0.0.1:8001`
+
+## 🔑 Akun Testing (Demo)
+Gunakan akun berikut untuk mencoba fitur aplikasi setelah melakukan seeding database:
+
+| Role     | Email              | Password |
+|----------|--------------------|----------|
+| Admin    | admin@rental.com   | password |
+| Customer | jhon@example.com   | password |
+
+### 📊 Ekspor ke Spreadsheet
+
 
 ## 📚 API Endpoints
 
